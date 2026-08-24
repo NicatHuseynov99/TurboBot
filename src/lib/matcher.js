@@ -44,6 +44,13 @@ async function fetchRecent(sub) {
   return recent;
 }
 
+// "ucuzdurmu" hesablanarkeen butun bazar (qiymet mehdudiyyetsiz) nezere alinmalidir -
+// price_from/price_to yalniz hansi elanlarin bize maraqli oldugunu (recent) suzur.
+function withoutPriceFilter(sub) {
+  const { price_from, price_to, ...rest } = sub;
+  return rest;
+}
+
 function extractYear(attrs) {
   if (!attrs) return null;
   const m = attrs.match(/^(\d{4})/);
@@ -53,7 +60,7 @@ function extractYear(attrs) {
 // Model+il evvelceden bilinen tek axtaris ucun (sub.model verilib)
 // Qaytarir: { cheapTop10: [...], recentMatches: [...] }
 async function findMatches(sub) {
-  const cheapUrl = await buildUrl(sub, "price_asc");
+  const cheapUrl = await buildUrl(withoutPriceFilter(sub), "price_asc");
   const cheapAll = await fetchPages(cheapUrl, 3);
   const sorted = cheapAll.filter((l) => l.price != null).sort((a, b) => a.price - b.price);
   const cheapTop10 = sorted.slice(0, cheapCount(sorted.length));
@@ -75,7 +82,10 @@ async function findMakeMatches(sub) {
 
   const cheapByYear = new Map();
   for (const year of years) {
-    const cheapUrl = await buildUrl({ ...sub, year_from: year, year_to: year }, "price_asc");
+    const cheapUrl = await buildUrl(
+      { ...withoutPriceFilter(sub), year_from: year, year_to: year },
+      "price_asc"
+    );
     const cheapAll = await fetchPages(cheapUrl, CHEAP_MAX_PAGES);
     const sorted = cheapAll
       .filter((l) => l.price != null)
