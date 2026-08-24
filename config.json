@@ -1,0 +1,16 @@
+{
+  "subscriptions": [
+    {
+      "id": "nicat-hyundai-accent",
+      "chat_id": "5519153091",
+      "make": "Hyundai",
+      "model": "Accent"
+    },
+    {
+      "id": "nihat-hyundai-accent",
+      "chat_id": "806704135",
+      "make": "Hyundai",
+      "model": "Accent"
+    }
+  ]
+}

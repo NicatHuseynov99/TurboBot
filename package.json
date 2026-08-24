@@ -1,0 +1,14 @@
+{
+  "name": "turboaz-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "turbo.az elanlarini izleyib, sechilmis filtrlerde qiymete gore en ucuz 10-luga dushen ve son 48 saatda elave olunan elanlari Telegrama gonderir",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node src/notify.js",
+    "whoami": "node src/whoami.js"
+  }
+}
