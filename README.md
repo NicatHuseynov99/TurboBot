@@ -1,7 +1,11 @@
 # turbo.az tracker
 
-turbo.az-da seçdiyin marka/model üzrə axtarışda **"Əvvəlcə ucuz"** sırasına görə ilk 10-luğa düşən
-elanlardan **son 3 gündə** əlavə olunanları tapıb Telegram-a göndərir.
+turbo.az-da seçdiyin **marka** üzrə (istəsən model də əlavə edərək) axtarışda çıxan elanlardan
+**son 3 gündə** əlavə olunanları tapıb, öz **model+il** qrupunda qiymətə görə ən ucuz ~25%-lik
+dilimə (min 1, maks 10) düşənləri Telegram-a göndərir.
+
+Məsələn: `make: "Kia"` yazsan (modelsiz) — son 3 gündə çıxan hər Kia elanı üçün avtomatik öz
+model+il-i üzrə (məs. "Kia Sportage 2019") axtarış edilir, o qrupun ən ucuzlarındandırsa bildirilir.
 
 Hər 20 dəqiqədən bir GitHub Actions üzərində avtomatik işləyir (pulsuz, kompüter açıq olmasa da işləyir).
 
@@ -16,7 +20,9 @@ Sahələr:
 - `id` — unikal ad (istənilən mətn, məs. `nihat-kia-sportage`)
 - `chat_id` — Telegram chat id-n (aşağıda necə tapmaq izah olunub)
 - `make` — marka: Hyundai, Kia, Toyota, Mercedes, BMW, Changan, BYD (`src/lib/meta.js`-də `MAKES`-ə yeni marka əlavə edilə bilər)
-- `model` — model adı (məs. `Accent`, `Sportage`) — **istəyə bağlı**, boş saxlasan bütün marka üzrə axtarır
+- `model` — model adı (məs. `Accent`, `Sportage`) — **istəyə bağlı**. Boş saxlasan, marka daxilində
+  çıxan HƏR modeli/ili avtomatik özü üçün qiymətləndirir (dinamik rejim). Konkret model versən,
+  yalnız o model üzrə sabit axtarış edir.
 - `market` — massiv, məs. `["Avropa"]` — dəyərlər: Amerika, Avropa, Çin, Digər, Dubay, Koreya, "Rəsmi diler", Rusiya, Yaponiya
 - `fuel_type` — massiv, məs. `["Benzin"]` — dəyərlər: Benzin, Dizel, Qaz, Hidrogen, Elektro, Hibrid, "Plug-in Hibrid", "Dizel-Hibrid"
 - `category` — ban növü massiv, məs. `["Sedan"]`

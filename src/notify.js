@@ -1,19 +1,18 @@
 const fs = require("fs");
 const path = require("path");
-const { findMatches, RECENT_HOURS, CHEAP_TOP_N } = require("./lib/matcher");
+const { findMatches, findMakeMatches, RECENT_HOURS } = require("./lib/matcher");
 const { sendMessage } = require("./lib/telegram");
 const seenStore = require("./lib/seenStore");
 
 const CONFIG_PATH = path.join(__dirname, "..", "config.json");
 
 function formatMessage(sub, listing) {
-  const title = [sub.make, sub.model].filter(Boolean).join(" ");
   return (
     `🚗 <b>${listing.name}</b>\n` +
     `💰 ${listing.priceText}\n` +
     `📋 ${listing.attrs}\n` +
     `🕒 ${listing.dtText}\n` +
-    `— "${title}" filtrinde ən ucuz ${CHEAP_TOP_N}-luqda, son ${RECENT_HOURS} saatda əlavə olunub\n` +
+    `— öz model+il qrupunda ən ucuzlardan, son ${RECENT_HOURS} saatda əlavə olunub\n` +
     `${listing.url}`
   );
 }
@@ -32,7 +31,7 @@ async function run() {
     console.log(`[${sub.id}] yoxlanilir...`);
     let result;
     try {
-      result = await findMatches(sub);
+      result = sub.model ? await findMatches(sub) : await findMakeMatches(sub);
     } catch (err) {
       console.error(`[${sub.id}] xeta:`, err.message);
       continue;
@@ -41,9 +40,7 @@ async function run() {
     const seen = new Set(seenStore.load(sub.id));
     const fresh = result.recentMatches.filter((l) => !seen.has(l.id));
 
-    console.log(
-      `[${sub.id}] ucuz-10: ${result.cheapTop10.length}, son-${RECENT_HOURS}saat-uygun: ${result.recentMatches.length}, yeni: ${fresh.length}`
-    );
+    console.log(`[${sub.id}] son-${RECENT_HOURS}saat-uygun: ${result.recentMatches.length}, yeni: ${fresh.length}`);
 
     for (const listing of fresh) {
       await sendMessage(token, sub.chat_id, formatMessage(sub, listing));

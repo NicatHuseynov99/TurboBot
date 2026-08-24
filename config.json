@@ -1,16 +1,10 @@
 {
   "subscriptions": [
-    {
-      "id": "nicat-hyundai-accent",
-      "chat_id": "5519153091",
-      "make": "Hyundai",
-      "model": "Accent"
-    },
-    {
-      "id": "nihat-hyundai-accent",
-      "chat_id": "806704135",
-      "make": "Hyundai",
-      "model": "Accent"
-    }
+    { "id": "nicat-hyundai", "chat_id": "5519153091", "make": "Hyundai" },
+    { "id": "nicat-kia", "chat_id": "5519153091", "make": "Kia" },
+    { "id": "nicat-changan", "chat_id": "5519153091", "make": "Changan" },
+    { "id": "nihat-hyundai", "chat_id": "806704135", "make": "Hyundai" },
+    { "id": "nihat-kia", "chat_id": "806704135", "make": "Kia" },
+    { "id": "nihat-changan", "chat_id": "806704135", "make": "Changan" }
   ]
 }
