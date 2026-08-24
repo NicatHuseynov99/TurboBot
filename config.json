@@ -1,10 +1,7 @@
 {
   "subscriptions": [
-    { "id": "nicat-hyundai", "chat_id": "5519153091", "make": "Hyundai", "price_from": 10000, "price_to": 22000 },
-    { "id": "nicat-kia", "chat_id": "5519153091", "make": "Kia", "price_from": 10000, "price_to": 22000 },
-    { "id": "nicat-changan", "chat_id": "5519153091", "make": "Changan", "price_from": 10000, "price_to": 22000 },
-    { "id": "nihat-hyundai", "chat_id": "806704135", "make": "Hyundai", "price_from": 10000, "price_to": 22000 },
-    { "id": "nihat-kia", "chat_id": "806704135", "make": "Kia", "price_from": 10000, "price_to": 22000 },
-    { "id": "nihat-changan", "chat_id": "806704135", "make": "Changan", "price_from": 10000, "price_to": 22000 }
+    { "id": "qrup-hyundai", "chat_id": "-5355808501", "make": "Hyundai", "price_from": 10000, "price_to": 22000 },
+    { "id": "qrup-kia", "chat_id": "-5355808501", "make": "Kia", "price_from": 10000, "price_to": 22000 },
+    { "id": "qrup-changan", "chat_id": "-5355808501", "make": "Changan", "price_from": 10000, "price_to": 22000 }
   ]
 }

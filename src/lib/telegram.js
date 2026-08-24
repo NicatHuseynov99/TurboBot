@@ -1,4 +1,6 @@
-async function sendMessage(token, chatId, text) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function sendMessage(token, chatId, text, retries = 3) {
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   const res = await fetch(url, {
     method: "POST",
@@ -12,6 +14,11 @@ async function sendMessage(token, chatId, text) {
   });
   const data = await res.json();
   if (!data.ok) {
+    if (data.error_code === 429 && retries > 0) {
+      const waitSec = (data.parameters && data.parameters.retry_after) || 5;
+      await sleep((waitSec + 1) * 1000);
+      return sendMessage(token, chatId, text, retries - 1);
+    }
     throw new Error(`Telegram API xetasi: ${JSON.stringify(data)}`);
   }
   return data;

@@ -5,6 +5,9 @@ const { sendMessage } = require("./lib/telegram");
 const seenStore = require("./lib/seenStore");
 
 const CONFIG_PATH = path.join(__dirname, "..", "config.json");
+const SEND_DELAY_MS = 1500; // qrup rate-limit-ine dushmemek ucun mesajlar arasi fasile
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function formatMessage(sub, listing) {
   return (
@@ -43,12 +46,14 @@ async function run() {
     console.log(`[${sub.id}] son-${RECENT_HOURS}saat-uygun: ${result.recentMatches.length}, yeni: ${fresh.length}`);
 
     for (const listing of fresh) {
-      await sendMessage(token, sub.chat_id, formatMessage(sub, listing));
-      seen.add(listing.id);
-    }
-
-    if (fresh.length > 0) {
-      seenStore.save(sub.id, [...seen]);
+      try {
+        await sendMessage(token, sub.chat_id, formatMessage(sub, listing));
+        seen.add(listing.id);
+        seenStore.save(sub.id, [...seen]);
+      } catch (err) {
+        console.error(`[${sub.id}] mesaj gonderilmedi (${listing.id}):`, err.message);
+      }
+      await sleep(SEND_DELAY_MS);
     }
   }
 }
