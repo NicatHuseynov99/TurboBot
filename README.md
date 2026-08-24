@@ -1,7 +1,7 @@
 # turbo.az tracker
 
 turbo.az-da seçdiyin marka/model üzrə axtarışda **"Əvvəlcə ucuz"** sırasına görə ilk 10-luğa düşən
-elanlardan **son 48 saatda** əlavə olunanları tapıb Telegram-a göndərir.
+elanlardan **son 3 gündə** əlavə olunanları tapıb Telegram-a göndərir.
 
 Hər 20 dəqiqədən bir GitHub Actions üzərində avtomatik işləyir (pulsuz, kompüter açıq olmasa da işləyir).
 

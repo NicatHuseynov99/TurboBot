@@ -2,7 +2,7 @@ const { getHtml } = require("./http");
 const { parseListings } = require("./parse");
 const { buildUrl } = require("./buildQuery");
 
-const RECENT_HOURS = 48;
+const RECENT_HOURS = 72;
 const CHEAP_TOP_N = 10;
 const MAX_PAGES = 5;
 
